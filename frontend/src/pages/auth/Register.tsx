@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "@/api/axios";
 
 type FormData = {
     name: string;
@@ -54,7 +55,7 @@ export default function Register() {
             console.log("Form Data:", formData);
 
             const {data}: { data:{success: boolean, message:string}} = await axios.post(
-                "http://localhost:3000/register",
+                `${BASE_URL}/register`,
                 {
                     ...formData,
                     classes: formData.class,

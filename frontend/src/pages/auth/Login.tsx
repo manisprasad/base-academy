@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
+import { BASE_URL } from "@/api/axios";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("https://base-academy-backend.vercel.app/login", {
+      const response = await axios.post(`${BASE_URL}/login`, {
         phone: formData.phone,
         password: formData.password,
       },
