@@ -5,7 +5,7 @@ import axios, {
   type AxiosResponse,
 } from 'axios';
 
-const BASE_URL = 'https://base-academy-7yog.vercel.app/';
+const BASE_URL = 'https://base-academy-7yog.vercel.app';
 
 interface RetryRequestConfig extends AxiosRequestConfig {
   _retry?: boolean;
