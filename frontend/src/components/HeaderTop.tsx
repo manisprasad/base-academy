@@ -1,7 +1,6 @@
-
-import {
-  PhoneCall,
-} from 'lucide-react';
+import { useSiteSetting } from '@/context/siteSetting/useSiteSetting';
+import { PhoneCall } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import {
   FaWhatsapp,
   FaTelegram,
@@ -15,15 +14,15 @@ type SocialLink = {
   url: string;
 };
 
-const socialLinks: SocialLink[] = [
-  { name: 'whatsapp', url: 'https://wa.me/9319493165' },
-  { name: 'facebook', url: 'https://facebook.com/Concept-Online-Classes' },
-  { name: 'youtube', url: 'https://youtube.com/c/santoshkumaronlinestudy' },
-  { name: 'telegram', url: 'https://t.me/SantoshKumarCOC' },
-  { name: 'instagram', url: 'https://instagram.com/coc_education_' },
+const defaultSocialLinks: SocialLink[] = [
+  { name: 'whatsapp', url: 'https://wa.me/8587931817' },
+  { name: 'facebook', url: 'https://facebook.com/yourbaseacademy' },
+  { name: 'youtube', url: 'https://www.youtube.com/@yourbaseacademy' },
+  { name: 'telegram', url: 'https://t.me/yourbaseacademy' },
+  { name: 'instagram', url: 'https://www.instagram.com/yourbaseacademy/' },
 ];
 
-const purchaseContacts = ['7303445575', '8448322142'];
+const defaultContact = ['8587931817', '01169023365'];
 
 const iconMap = {
   whatsapp: <FaWhatsapp className="text-green-500 text-xl md:text-2xl" />,
@@ -34,17 +33,37 @@ const iconMap = {
 };
 
 export default function HeaderTop() {
+  const { siteInfo } = useSiteSetting();
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(defaultSocialLinks);
+  const [contact, setContact] = useState<string[]>(defaultContact);
+
+  useEffect(() => {
+    if (siteInfo?.socialLinks) {
+      const updatedLinks = defaultSocialLinks.map((link) => ({
+        ...link,
+        url: siteInfo.socialLinks?.[link.name] || link.url,
+      }));
+      setSocialLinks(updatedLinks);
+    }
+
+    if(siteInfo?.contactInfo?.contactPhone){
+      setContact(() => {
+        return siteInfo?.contactInfo?.contactPhone || defaultContact;
+      })
+    }
+  }, [siteInfo]);
+
   return (
     <div className="bg-orange-300 text-black px-4 py-2 text-sm border-b fixed top-0 left-0 right-0 z-50 w-full shadow-sm">
-      <div className="max-w-screen-xl mx-auto flex  items-center justify-between gap-3 md:gap-6">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-3 md:gap-6">
         {/* Contact Info */}
-        <div className="flex items-center  gap-2">
+        <div className="flex items-center gap-2">
           <PhoneCall className="text-black" size={18} />
-          {purchaseContacts.map((num, i) => (
+          {contact.map((num, i) => (
             <a
               key={i}
               href={`tel:${num}`}
-              className="text-[15px]  underline hover:text-primary hover:font-medium transition-colors"
+              className="text-[15px] underline hover:text-primary hover:font-medium transition-colors"
             >
               {num}
             </a>
@@ -52,7 +71,7 @@ export default function HeaderTop() {
         </div>
 
         {/* Social Icons */}
-        <div className="flex  items-center justify-center gap-3 md:gap-4">
+        <div className="flex items-center justify-center gap-3 md:gap-4">
           {socialLinks.map((link) => (
             <a
               key={link.name}

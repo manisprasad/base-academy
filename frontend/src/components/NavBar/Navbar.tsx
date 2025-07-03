@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { Link} from "react-router-dom";
 
 import ProfileMenu from "./ProfileMenu";
-import { RiVideoUploadFill } from "react-icons/ri";
+import Upload from "./Upload";
 
 export default function NavBar() {
     const auth = useAuth();
@@ -64,23 +64,23 @@ export default function NavBar() {
             ) :  <div className="flex items-center justify-center gap-4">
              {
               auth.user?.roles === 5150 && (
-                <div>
-                  <Button
-                  variant="outline"
-                  className="hidden sm:flex md:flex lg:flex items-center gap-2"
-                  asChild
-                >
-                  <Link to="/admin/upload">
-                    <RiVideoUploadFill className="size-4" />
-                    Upload Course
-                  </Link>
-                </Button>
+                // <div>
+                //   <Button
+                //   variant="outline"
+                //   className="hidden sm:flex md:flex lg:flex items-center gap-2"
+                //   asChild
+                // >
+                //   <Link to="/admin/upload">
+                //     <RiVideoUploadFill className="size-4" />
+                //     Upload Course
+                //   </Link>
+                // </Button>
 
-                 <Link to="/admin/upload" className="lg:hidden md:hidden sm:hidden">
-                    <RiVideoUploadFill className="size-4" />
-                  </Link>
-                </div>
-
+                //  <Link to="/admin/upload" className="lg:hidden md:hidden sm:hidden">
+                //     <RiVideoUploadFill className="size-4" />
+                //   </Link>
+                // </div>
+                <Upload />
                 
               )
              }

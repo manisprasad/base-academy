@@ -1,50 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Logo from "../../base_academy_logo.png";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { useSiteSetting } from "@/context/siteSetting/useSiteSetting";
+
+// Define allowed social platforms
+type SocialPlatform = "facebook" | "twitter" | "instagram" | "linkedin";
+
+// Map display label to actual keys in siteInfo.socialLinks
+const labelToPlatformMap: Record<string, SocialPlatform> = {
+  Facebook: "facebook",
+  Twitter: "twitter",
+  Instagram: "instagram",
+  LinkedIn: "linkedin",
+};
+
+// Default social links (with default "#")
+const defaultSocialLinks = [
+  { icon: <FaFacebook size={20} className="text-blue-500 scale-125" />, href: "#", label: "Facebook" },
+  { icon: <FaTwitter size={20} className="text-blue-400 scale-125" />, href: "#", label: "Twitter" },
+  { icon: <FaInstagram size={20} className="text-red-500 scale-125" />, href: "#", label: "Instagram" },
+  { icon: <FaLinkedin size={20} className="text-blue-400 scale-125" />, href: "#", label: "LinkedIn" },
+];
+
+const footerSections = [
+  {
+    title: "Courses",
+    links: [
+      { label: "Web Development", href: "#" },
+      { label: "Data Science", href: "#" },
+      { label: "UX/UI Design", href: "#" },
+      { label: "Digital Marketing", href: "#" },
+      { label: "Mobile Development", href: "#" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Blog", href: "#" },
+      { label: "Tutorials", href: "#" },
+      { label: "Webinars", href: "#" },
+      { label: "Free Courses", href: "#" },
+      { label: "Career Advice", href: "#" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About Us", href: "#" },
+      { label: "Careers", href: "#" },
+      { label: "Partners", href: "#" },
+      { label: "Terms of Service", href: "#" },
+      { label: "Privacy Policy", href: "#" },
+    ],
+  },
+];
 
 const Footer: React.FC = () => {
-  const socialLinks = [
-    { icon: <FaFacebook size={20} className="text-blue-500 scale-125" />, href: "#", label: "Facebook" },
-    { icon: <FaTwitter size={20} className="text-blue-400 scale-125" />, href: "#", label: "Twitter" },
-    { icon: <FaInstagram size={20}  className="text-red-500 scale-125"/>, href: "#", label: "Instagram" },
-    { icon: <FaLinkedin size={20}  className="text-blue-400 scale-125"/>, href: "#", label: "LinkedIn" },
-  ];
+  const { siteInfo } = useSiteSetting();
+  const [socialLinks, setSocialLinks] = useState(defaultSocialLinks);
 
-  const footerSections = [
-    {
-      title: "Courses",
-      links: [
-        { label: "Web Development", href: "#" },
-        { label: "Data Science", href: "#" },
-        { label: "UX/UI Design", href: "#" },
-        { label: "Digital Marketing", href: "#" },
-        { label: "Mobile Development", href: "#" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { label: "Blog", href: "#" },
-        { label: "Tutorials", href: "#" },
-        { label: "Webinars", href: "#" },
-        { label: "Free Courses", href: "#" },
-        { label: "Career Advice", href: "#" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { label: "About Us", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Partners", href: "#" },
-        { label: "Terms of Service", href: "#" },
-        { label: "Privacy Policy", href: "#" },
-      ],
-    },
-  ];
+useEffect(() => {
+  if (siteInfo?.socialLinks) {
+    const updatedLinks = defaultSocialLinks.map((link) => {
+      const platformKey = labelToPlatformMap[link.label];
+
+      // Safely access social link only if the key exists
+      const customHref = platformKey && siteInfo.socialLinks
+        ? siteInfo.socialLinks[platformKey]
+        : undefined;
+
+      return {
+        ...link,
+        href: customHref || link.href,
+      };
+    });
+
+    setSocialLinks(updatedLinks);
+  }
+}, [siteInfo]);
+
 
   return (
     <footer className="bg-background text-muted-foreground pt-16 pb-8 border-t border-border">
@@ -84,7 +121,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Footer Links */}
+          {/* Footer Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
               <h4 className="text-base font-semibold mb-6 text-foreground">
@@ -118,7 +155,7 @@ const Footer: React.FC = () => {
               <motion.a
                 key={link.label}
                 href={link.href}
-                className="w-12 scale-125 ml-6  h-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground   transition-colors"
+                className="w-12 scale-125 ml-6 h-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground transition-colors"
                 aria-label={link.label}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

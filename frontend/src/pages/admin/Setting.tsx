@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import UsefulLinks from '@/components/adminSettings/UsefullLinks';
+import  PageUnderConstruction from '@/components/pageUnderConstruction';
 
 
 
@@ -38,6 +39,11 @@ export const sidebarItems: SidebarItem[] = [
     icon: <Phone className="w-4 h-4" />,
     component: <ContactInfo />,
   },
+  {
+    name: 'Crasoual',
+    icon: <Pencil className="w-4 h-4" />,
+    component: <PageUnderConstruction/>,
+  }
 ];
 
 

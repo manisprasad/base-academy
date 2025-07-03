@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
 import { User, Phone, MessageCircle } from 'lucide-react';
 import CustomerSupportPng from '../assets/customer-support.png';
+import { useSiteSetting } from '@/context/siteSetting/useSiteSetting';
 
 // Zod Schema
 const contactFormSchema = z.object({
@@ -29,6 +30,7 @@ const fadeInUp = {
 };
 
 const ContactUs = () => {
+  const {siteInfo} = useSiteSetting();
 
     useEffect(() => {
         window.scrollTo({top: 100})
@@ -42,7 +44,7 @@ const ContactUs = () => {
   });
 
   const onSubmit = (data: ContactFormValues) => {
-    const whatsappURL = `https://wa.me/9319493165?text=${encodeURIComponent(
+    const whatsappURL = `${siteInfo?.socialLinks?.whatsapp || "https://wa.me/8587931817"}?text=${encodeURIComponent(
       `Hi, I’m name is ${data.name}. \n My Phone Number is  ${data.number}.  \n and my query is:   ${data.message}. `
     )}`;
     window.open(whatsappURL, '_blank');
@@ -101,7 +103,7 @@ const ContactUs = () => {
         >
           Use{' '}
           <a href="mailto:hello@selfstudys.com" className="text-primary font-medium underline hover:opacity-80">
-            hello@selfstudys.com
+           {siteInfo?.contactInfo?.contactEmail || "yourbaseacademy@gmail.com"}
           </a>{' '}
           to ask your queries.
         </motion.p>
@@ -188,7 +190,7 @@ const ContactUs = () => {
           className="w-full rounded-xl border shadow"
           height="450"
           loading="lazy"
-           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.954103678784!2d77.17869361114293!3d28.66109287554755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0288c42553df%3A0xf3a96063461dc2d!2sBase%20Academy!5e0!3m2!1sen!2sus!4v1751402744944!5m2!1sen!2sus"
+           src={siteInfo?.contactInfo?.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.954103678784!2d77.17869361114293!3d28.66109287554755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0288c42553df%3A0xf3a96063461dc2d!2sBase%20Academy!5e0!3m2!1sen!2sus!4v1751402744944!5m2!1sen!2sus"}
         ></iframe>
       </motion.div>
     </div>

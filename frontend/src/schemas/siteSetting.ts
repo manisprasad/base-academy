@@ -57,6 +57,7 @@ const themeSettingsSchema = z.object({
 
 // Main Site Config Schema
 const siteConfigSchema = z.object({
+  _id : z.string().optional(),
   generalSettings: generalSettingsSchema.optional(),
   contactInfo: contactInfoSchema.optional(),
   socialLinks: socialLinksSchema.optional(),

@@ -1,3 +1,5 @@
+import Loading from '@/components/loading/Loading';
+import { useSiteSetting } from '@/context/siteSetting/useSiteSetting';
 
 import { motion } from 'framer-motion';
 import {
@@ -9,7 +11,8 @@ import {
   Lightbulb,
   ArrowRight,
 } from 'lucide-react';
-import { FaFacebook, FaInstagram, FaTelegram, FaWhatsapp } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { FaFacebook, FaGithub, FaInstagram, FaTelegram, FaTwitter, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 
 const features = [
   { icon: BookOpen, title: 'Free Study Materials' },
@@ -20,24 +23,25 @@ const features = [
   { icon: Lightbulb, title: 'Doubt Solving' },
 ];
 
-
-const socialLinks = [
+const defaultSocialLinks = [
   {
     name: 'Telegram',
     icon: <FaTelegram className="text-6xl text-blue-500" />,
-    href: 'https://t.me/yourtelegram',
+    href: 'https://t.me/yourbaseacademy',
     bg: 'bg-[#229ED9]',
   },
   {
     name: 'WhatsApp',
     icon: <FaWhatsapp className="text-6xl text-green-500" />,
-    href: 'https://wa.me/yourwhatsappnumber',
+    href: 'https://wa.me/8587931817',
     bg: 'bg-[#25D366]',
   },
   {
     name: 'Instagram',
-    icon: <FaInstagram className="text-6xl rounded-3xl bg-gradient-to-r from-[#f58529] via-[#dd2a7b] to-[#8134af]" />,
-    href: 'https://instagram.com/yourpage',
+    icon: (
+      <FaInstagram className="text-6xl rounded-3xl bg-gradient-to-r from-[#f58529] via-[#dd2a7b] to-[#8134af]" />
+    ),
+    href: 'https://www.instagram.com/yourbaseacademy/',
     bg: 'bg-gradient-to-r from-[#f58529] via-[#dd2a7b] to-[#8134af]',
   },
   {
@@ -46,10 +50,54 @@ const socialLinks = [
     href: 'https://facebook.com/yourpage',
     bg: 'bg-[#1877F2]',
   },
+  {
+    name: 'YouTube',
+    icon: <FaYoutube className="text-6xl text-red-600" />,
+    href: 'https://www.youtube.com/@yourbaseacademy',
+    bg: 'bg-[#FF0000]',
+  },
+  {
+    name: 'GitHub',
+    icon: <FaGithub className="text-6xl text-black" />,
+    href: 'https://github.com/yourbaseacademy',
+    bg: 'bg-[#000000]',
+  },
+  {
+    name: 'Twitter',
+    icon:<FaTwitter className="text-6xl text-blue-500" />,
+    href: 'https://x.com/yourbaseacademy',
+    bg: 'bg-[#1DA1F2]',
+  }
 ];
-
-
 const About = () => {
+  const { siteInfo } = useSiteSetting() || {};
+  const [socialLinks, setSocialLinks] = useState(defaultSocialLinks);
+
+ useEffect(() => {
+  if (siteInfo?.socialLinks) {
+    const links = siteInfo.socialLinks as Record<string, string>;
+
+    const updatedLinks = defaultSocialLinks.map((item) => {
+      const key = item.name.toLowerCase();
+      return {
+        ...item,
+        href: links[key] || item.href,
+      };
+    });
+
+    setSocialLinks(updatedLinks);
+  }
+}, [siteInfo]);
+
+
+  if (!siteInfo) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <section className="mt-22 px-6 py-16 bg-muted/50 text-foreground">
       <div className="max-w-5xl mx-auto space-y-16 text-center">
@@ -131,39 +179,40 @@ const About = () => {
           viewport={{ once: true }}
         >
           <p className="text-lg text-muted-foreground mb-4">
-            Since 2012, We offers expert online coaching to build strong academic foundations. Build your base, build your career—your success starts here.
+            Since 2012, We offer expert online coaching to build strong academic foundations.
+            Build your base, build your career — your success starts here.
           </p>
-          <p>
-            Join us Now!
-          </p>
-           <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="rounded-2xl p-6 md:p-10 bg-muted/50 text-center shadow-xl"
-    >
-      <h3 className="text-3xl font-bold mb-8">📲 Join Our Community</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {socialLinks.map((link) => (
-          <a
-            key={link.name}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group flex flex-col items-center justify-center gap-3 p-6 rounded-2xl text-white transition-transform transform hover:scale-105 shadow-md ${link.bg}`}
+          <p>Join us Now!</p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="rounded-2xl p-6 md:p-10 bg-muted/50 text-center shadow-xl"
           >
-            <div className="p-3 bg-white bg-opacity-20 rounded-full">
-              {link.icon}
+            <h3 className="text-3xl font-bold mb-8">📲 Join Our Community</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group flex flex-col items-center justify-center gap-3 p-4 rounded-2xl text-white transition-transform transform hover:scale-105 shadow-md ${link.bg}`}
+                >
+                  <div className="p-3 bg-white bg-opacity-20 rounded-full">
+                    {link.icon}
+                  </div>
+                  <span className="text-lg font-semibold">{link.name}</span>
+                </a>
+              ))}
             </div>
-            <span className="text-lg font-semibold">{link.name}</span>
-          </a>
-        ))}
-      </div>
-    </motion.div>
+          </motion.div>
+
           <a
             href="/courses"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow hover:opacity-90 transition"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow hover:opacity-90 transition mt-6"
           >
             Explore Our Courses <ArrowRight className="w-4 h-4" />
           </a>

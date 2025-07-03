@@ -36,7 +36,7 @@ export default function ImageCarousel() {
   }, []);
 
   return (
-    <div className="relative max-w-[1700px] mx-auto h-[250px] md:h-[350px] rounded-2xl overflow-hidden shadow-xl">
+    <div className="relative max-w-[1700px] mt-5 mx-auto h-[250px] md:h-[350px] rounded-2xl overflow-hidden shadow-xl">
       {/* Blurred Background */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center blur-xl scale-110 brightness-50"

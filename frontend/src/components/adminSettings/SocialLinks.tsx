@@ -26,7 +26,7 @@ const startsWithDomain = (domain: string) =>
         });
 
 const socialSchema = z.object({
-    twitter: z.union([startsWithDomain('https://twitter.com/'), z.literal('')]).optional(),
+    twitter: z.union([startsWithDomain('https://x.com/'), z.literal('')]).optional(),
     instagram: z.union([startsWithDomain('https://instagram.com/'), z.literal('')]).optional(),
     youtube: z.union([startsWithDomain('https://youtube.com/'), z.literal('')]).optional(),
     facebook: z.union([startsWithDomain('https://facebook.com/'), z.literal('')]).optional(),

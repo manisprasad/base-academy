@@ -24,6 +24,7 @@ import Setting from './pages/admin/Setting';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import FeedBack from './pages/Feedback';
+import Notes from './pages/Notes';
 
 
 function App() {
@@ -56,6 +57,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/course/:id" element={<CourseDetails />} />
+        <Route path="/notes" element={<Notes />} />
+
 
         {/* Admin Protected Routes */}
         <Route element={<AuthRequired allowedRole={5150} />}>
@@ -65,6 +68,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile" element={<Profile />} />
           <Route path='/feedback' element={<FeedBack />} />
+          <Route path="/admin/upload/notes" element={<Notes />} />
 
         </Route>
 
