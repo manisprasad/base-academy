@@ -163,7 +163,7 @@ export const getCourseById = async (
 
 // Update Course
 export const updateCourse = async (
-  req: Request<CourseParams, {}, CourseBody>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -255,7 +255,7 @@ export const updateCourse = async (
 
 // Delete Course 
 export const deleteCourse = async (
-  req: Request<CourseParams>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

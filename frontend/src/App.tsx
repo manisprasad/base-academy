@@ -69,7 +69,6 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path='/feedback' element={<FeedBack />} />
           <Route path="/admin/upload/notes" element={<Notes />} />
-
         </Route>
 
         {/* Student Protected Routes */}
