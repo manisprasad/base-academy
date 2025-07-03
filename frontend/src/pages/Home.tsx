@@ -9,11 +9,14 @@ import ModernCarousel from '@/components/Crasoual';
 import { useEffect, useState } from 'react';
 
 import ContactModal from '@/components/ContactModal';
+import { useSiteSetting } from '@/context/siteSetting/useSiteSetting';
 
 
 
 
 function Home() {
+  const {siteInfo} = useSiteSetting();
+
   const [timeSpent, setTimeSpent] = useState<number>(0);
   console.log("Time spent on page:", timeSpent);
 
@@ -56,7 +59,7 @@ useEffect(() => {
       <div className="fixed bottom-10 right-10 flex flex-col gap-3 z-50">
         {/* WhatsApp Button */}
         <a
-          href="https://wa.me/9319493165"
+          href={siteInfo?.socialLinks?.whatsapp || "https://wa.me/8587931817"}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-12 h-12 text-8xl bg-green-500 rounded-full shadow-lg hover:bg-green-600 transition"
@@ -66,7 +69,7 @@ useEffect(() => {
 
         {/* Call Button */}
         <a
-          href="tel:9319493165"
+          href={`tel:${siteInfo?.contactInfo?.contactPhone?.length && siteInfo.contactInfo.contactPhone[0]  || "8587931817"}`}
           className="flex items-center justify-center w-12 h-12 text-3xl bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 transition"
         >
          <FaPhone />

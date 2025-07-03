@@ -1,8 +1,8 @@
 import { axiosInstance } from "@/api/axios";
+import Loading from "@/components/loading/Loading";
 import type { SiteConfigType } from "@/schemas/siteSetting";
 import type React from "react";
 import { createContext, useEffect, useState } from "react";
-import { FaSpinner } from "react-icons/fa";
 
 
 interface SiteSettingContextType {
@@ -37,7 +37,7 @@ export const SiteSettingProvider = ({ children }: { children: React.ReactNode })
     <SiteSettingContext.Provider value={{ siteInfo, setSiteInfo }}>
       {loading ? (
         <div className="flex justify-center items-center min-h-screen">
-          <FaSpinner className="animate-spin text-2xl" />
+          <Loading />
         </div>
       ) : (
         children

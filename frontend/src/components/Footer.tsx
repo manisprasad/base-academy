@@ -103,19 +103,19 @@ useEffect(() => {
               <div className="flex items-start">
                 <Mail className="w-5 h-5 text-primary mt-1 mr-3" />
                 <span className="text-muted-foreground">
-                  info@baseacademy.edu
+                  {siteInfo?.contactInfo?.contactEmail || "yourbaseacademy@gmail.com"}
                 </span>
               </div>
               <div className="flex items-start">
                 <Phone className="w-5 h-5 text-primary mt-1 mr-3" />
                 <span className="text-muted-foreground">
-                  +1 (555) 123-4567
+                 {siteInfo?.contactInfo?.contactPhone?.join(' ') || "8587931817"}
                 </span>
               </div>
               <div className="flex items-start">
                 <MapPin className="w-5 h-5 text-primary mt-1 mr-3" />
                 <span className="text-muted-foreground">
-                  Base Academy, New Delhi-110005
+                  {siteInfo?.contactInfo?.address || "Base Academy , Anand Parbat, Near New Spot, New Delhi, 110005"}
                 </span>
               </div>
             </div>
