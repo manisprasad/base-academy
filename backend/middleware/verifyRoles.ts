@@ -15,6 +15,8 @@ const verifyRole = (allowedRoles: number) => {
        return;
     }
 
+    console.log('User role verified:', req.roles , "You can delete");
+
     // okay, now You can go
     next();
   };

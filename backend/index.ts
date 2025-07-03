@@ -20,6 +20,7 @@ import { purchaseRoute } from './routes/purchaseRoute';
 import { myCourseRoute } from './routes/myCoursesRoute';
 import { linkRoute } from './routes/linkRoute';
 import siteConfigRouter from './routes/siteSettingRouter';
+import { contactRoute } from './routes/contactRoute';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -48,8 +49,9 @@ connectDB().then(() => {
   app.use('/api/links', linkRoute);
 
   app.use('/api/site-config', siteConfigRouter);
-
   app.use('/api/student/my-courses', myCourseRoute)
+  app.use('/api/contact', contactRoute);
+
 
   // Start server 
   app.listen(PORT, () => {

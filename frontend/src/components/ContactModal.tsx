@@ -17,13 +17,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { axiosInstance } from "@/api/axios";
 
 // Zod Schema
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
   phone: z
     .string()
-    .regex(/^\+?[0-9]{10,15}$/, "Invalid phone number")
+    .min(10, "Phone number must be at least 10 digits")
+    .max(15, "Phone number must be at most 15 digits")
     .optional()
     .or(z.literal("")),
   message: z.string().min(1, "Message is required"),
@@ -49,9 +51,13 @@ const ContactModal = () => {
   const onSubmit = async (_: ContactFormData) => {
     setIsSubmitting(true);
     try {
-      await new Promise((res) => setTimeout(res, 1500));
+      await axiosInstance.post("/api/contact/email", {
+        name: form.getValues("name"),
+        phone: form.getValues("phone"),
+        query: form.getValues("message"),
+      });
       setIsSuccess(true);
-      toast.success("Message sent!");
+      toast.success("Message sent!, We Will Get Back To You Soon");
       setTimeout(() => {
         closeModal();
         setTimeout(() => {

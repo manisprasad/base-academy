@@ -29,7 +29,8 @@ export const Dashboard = () => {
   const handleDeleteCourse = async (courseId: string) => {
     try {
       const response = await axiosInstance.delete(`/api/courses/${courseId}`);
-     
+
+      console.log('Delete response:', response);
 
       if (response.status !== 200) {
         toast.error('Failed to delete course');
