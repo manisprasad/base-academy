@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { axiosInstance } from "@/api/axios";
+import axios from "axios";
 
 // Zod Schema
 const contactSchema = z.object({
@@ -56,6 +57,13 @@ const ContactModal = () => {
         phone: form.getValues("phone"),
         query: form.getValues("message"),
       });
+
+      await axios.post("/api/contact/telegram", {
+        name: form.getValues("name"),
+        phone: form.getValues("phone"),
+        query: form.getValues("message"),
+      });
+      
       setIsSuccess(true);
       toast.success("Message sent!, We Will Get Back To You Soon");
       setTimeout(() => {
