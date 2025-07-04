@@ -25,6 +25,8 @@ import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import FeedBack from './pages/Feedback';
 import Notes from './pages/Notes';
+import {UploadNotes} from './pages/admin/UploadNotes';
+import ManageStudent from './pages/admin/ManageStudent';
 
 
 function App() {
@@ -68,7 +70,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/profile" element={<Profile />} />
           <Route path='/feedback' element={<FeedBack />} />
-          <Route path="/admin/upload/notes" element={<Notes />} />
+          <Route path="/admin/upload/notes" element={<UploadNotes />} />
+          <Route path="/admin/manage-students" element={<ManageStudent />} />
         </Route>
 
         {/* Student Protected Routes */}

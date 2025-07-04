@@ -14,7 +14,8 @@ const handleRegister = async (req: Request, res: Response) => {
             classes,
             stream = "", 
             bio,
-            profileImage
+            profileImage,
+            gender
         } = req.body;
 
         // ✅ Basic validation
@@ -54,6 +55,7 @@ const handleRegister = async (req: Request, res: Response) => {
             subjects,
             bio,
             profileImage,
+            gender,
             isVerified: false
         });
 

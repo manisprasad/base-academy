@@ -21,6 +21,8 @@ import { myCourseRoute } from './routes/myCoursesRoute';
 import { linkRoute } from './routes/linkRoute';
 import siteConfigRouter from './routes/siteSettingRouter';
 import { contactRoute } from './routes/contactRoute';
+import notesRouter from './routes/notesRoute';
+import { userRouter } from './routes/userRoute';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -51,6 +53,14 @@ connectDB().then(() => {
   app.use('/api/site-config', siteConfigRouter);
   app.use('/api/student/my-courses', myCourseRoute)
   app.use('/api/contact', contactRoute);
+  app.use('/api/notes', notesRouter); 
+
+  app.use('/api/user', userRouter);
+  // Catch-all route for undefined routes
+
+  app.use((req, res) => {
+    res.status(404).send({ message: "❌ Route not found" });
+  });
 
 
   // Start server 

@@ -1,9 +1,11 @@
 import { Resend } from 'resend';
 import { z } from 'zod';
 
-const resend = new Resend('re_FSMryJW2_N5EMSihLKdYKSyYixiLofdkT'); // Replace with your real API key
+const RESENT_API = process.env.RESEND_API || undefined;
 
-// Sample student data (could come from a form or database)
+const resend = new Resend(RESENT_API as string); 
+
+
 export const StudentData = z.object({
   name: z.string().min(1, "Name is required"),
   phone: z.string().min(10, "Phone number is required"),

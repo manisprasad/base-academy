@@ -7,7 +7,7 @@ import { SearchIcon, FilterIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router-dom";
 
-export type CoursesT = Omit<Course, "courseContent">;
+export type CoursesT = Omit<Course, "courseContent" | "courseLink" | "faq">;
 
 const Courses = () => {
   const { data, error, loading } = useFetch<CoursesT[]>("/api/courses/", {

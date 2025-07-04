@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Clock, ExternalLink, Eye, Pencil, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { Course } from "../types/courses";
+import { type CoursesT } from "@/pages/Courses";
 import { useAuth } from "@/hooks/useAuth";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import ConfirmModal from "./ConfirmModal";
 
 interface CourseCardProps {
-  course: Omit<Course, "courseContent">;
+  course: CoursesT;
   onCourseClick?: (courseId: string) => void;
   onEditClick?: (courseId: string) => void;
   onDeleteClick?: (courseId: string) => void;

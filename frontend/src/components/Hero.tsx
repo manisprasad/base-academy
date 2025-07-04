@@ -6,6 +6,9 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Link } from 'react-router-dom';
 import ContactModal from './ContactModal';
+import { easeOut } from 'framer-motion';
+import { spring } from 'framer-motion';
+
 
 const Hero: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -26,14 +29,14 @@ const Hero: React.FC = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
+      transition: { duration: 0.6, ease: easeOut },
     },
   };
 
   const buttonVariants = {
     hover: {
       scale: 1.05,
-      transition: { duration: 0.3, type: 'spring', stiffness: 300 },
+      transition: { duration: 0.3, type: spring, stiffness: 300 },
     },
     tap: { scale: 0.95 },
   };

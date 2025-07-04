@@ -22,7 +22,7 @@ export default function NavBar() {
     <div className="">
 
 
-      <header className="h-16 mt-9  text-[15px] fixed inset-x-0 top-0 flex-center bg-background/80 backdrop-blur border-b border-border z-50">
+      <header className="h-16 mt-7  text-[15px] fixed inset-x-0 top-0 flex-center bg-background/80 backdrop-blur border-b border-border z-50">
         <nav className="px-3.5 flex-center-between w-full max-w-7xl mx-auto">
           {/* Logo + Title */}
           <Link to={'/'} className="flex-center gap-x-3 z-[999] relative">

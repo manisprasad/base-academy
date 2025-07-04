@@ -29,12 +29,7 @@ const sendTelegramMessage = async (student: StudentDatatype) => {
   });
 };
 
-// Example usage:
-sendTelegramMessage({
-  name: 'Test User',
-  phone: '+91 934-567-8900',
-  query: 'I am interested in your online course'
-});
+
 console.log('Telegram message sent successfully!');
 
 export default sendTelegramMessage;

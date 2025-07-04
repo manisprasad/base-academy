@@ -14,6 +14,6 @@ export const NotesZodSchema = z.object({
   tags: z.array(z.string()).optional(),
   likes: z.number().default(0),
   views: z.number().default(0),
-});
+}) ;
 
 export type NotesType = z.infer<typeof NotesZodSchema>;

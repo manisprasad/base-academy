@@ -23,6 +23,7 @@ type FormData = {
     school: string;
     class: string;
     stream: string;
+    gender: "Male" | "Female" | "Others" | undefined;
 };
 
 export default function Register() {
@@ -35,6 +36,7 @@ export default function Register() {
         school: "",
         class: "",
         stream: "",
+        gender: undefined,
     });
 
     const handleSubmit = async (e: FormEvent) => {
@@ -104,6 +106,15 @@ export default function Register() {
         }));
     };
 
+    const handleGenderChange = (value: "Male" | "Female" | "Others") => {
+        setFormData((prev) => (
+            {
+                ...prev,
+                gender: value,
+            }
+        ))
+    }
+
     return (
         <div className="max-w-md mx-auto p-6 space-y-6 mt-22">
             <div className="text-center">
@@ -147,6 +158,25 @@ export default function Register() {
                         />
                     </div>
                 </div>
+
+                {/* gender */}
+                 <div className="space-y-2">
+                        <Label htmlFor="stream">Gender</Label>
+                        <Select
+                            required
+                            value={formData.gender} 
+                            onValueChange={handleGenderChange}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select your gender" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="Male">Male</SelectItem>
+                                <SelectItem value="Female">Female</SelectItem>
+                                <SelectItem value="Others">Others</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
 
                 {/* Password */}
                 <div className="space-y-2">
@@ -226,6 +256,7 @@ export default function Register() {
                         </Select>
                     </div>
                 )}
+
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? "Registering..." : "Register"}

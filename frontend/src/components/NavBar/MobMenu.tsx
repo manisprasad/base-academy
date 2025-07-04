@@ -12,6 +12,8 @@ export default function MobMenu({ Menus }: MobMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [clickedIndex, setClickedIndex] = useState<number | null>(null)
 
+  console.log("Menus:", Menus)
+
   const toggleDrawer = () => {
     setIsOpen((prev) => !prev)
     setClickedIndex(null)
@@ -43,7 +45,7 @@ export default function MobMenu({ Menus }: MobMenuProps) {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <ul className="space-y-2">
-          {Menus.map(({ name, subMenu }, i) => {
+          {Menus.map(({ name, subMenu , link }, i) => {
             const isOpenSubMenu = clickedIndex === i
             const hasSubMenu = Array.isArray(subMenu) && subMenu.length > 0
 
@@ -53,7 +55,13 @@ export default function MobMenu({ Menus }: MobMenuProps) {
                   className="flex items-center justify-between p-4 hover:bg-white/5 rounded-md cursor-pointer"
                   onClick={() => setClickedIndex(isOpenSubMenu ? null : i)}
                 >
-                  {name}
+                  {
+                    link ? (
+                      <Link onClick={toggleDrawer} to={link} className="flex items-center gap-2">
+                        {name}
+                      </Link>
+                    ) : <span>{name}</span>
+                  }
                   {hasSubMenu && (
                     <ChevronDown
                       className={`ml-2 transition-transform ${isOpenSubMenu ? "rotate-180" : ""}`}
@@ -70,7 +78,8 @@ export default function MobMenu({ Menus }: MobMenuProps) {
                   >
                     {subMenu.map(({link, name, icon: Icon }) => (
                       <Link
-                        to={`${link}`}
+                        onClick={toggleDrawer}
+                        to={link || "#"}
                         key={name}
                         className="flex items-center gap-2 p-2 rounded-md hover:bg-white/5 cursor-pointer"
                       >

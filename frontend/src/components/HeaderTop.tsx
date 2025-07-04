@@ -54,18 +54,18 @@ export default function HeaderTop() {
   }, [siteInfo]);
 
   return (
-    <div className="bg-orange-300 text-black px-4 py-2 text-sm border-b fixed top-0 left-0 right-0 z-50 w-full shadow-sm">
+    <div className="bg-orange-300 text-black py-1 text-sm border-b fixed top-0 left-0 right-0 z-50 w-full shadow-sm">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between gap-3 md:gap-6">
         {/* Contact Info */}
-        <div className="flex items-center gap-2">
-          <PhoneCall className="text-black" size={18} />
+        <div className="flex items-center gap-1 ">
+          <PhoneCall className="text-black" size={12} />
           {contact.map((num, i) => (
             <a
               key={i}
               href={`tel:${num}`}
               className="text-[15px] underline hover:text-primary hover:font-medium transition-colors"
             >
-              {num}
+              {num.startsWith('+91') ? num.substring(3) : num}
             </a>
           ))}
         </div>

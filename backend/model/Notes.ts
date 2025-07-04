@@ -15,7 +15,7 @@ const NotesMongooseSchema = new Schema<INote>(
     link: { type: String, required: true },
     category: { type: [String], required: true },
     subject: { type: String },
-    class: { type: String },
+    classes: { type: String },
     isFree: { type: Boolean, required: true },
     price: { type: Number, min: 0 },
     thumbnail: { type: String },

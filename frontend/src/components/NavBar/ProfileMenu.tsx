@@ -17,7 +17,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { FaBookOpen } from "react-icons/fa";
 import type { AuthContextType } from "@/types/user";
-import { RiAdminFill } from "react-icons/ri";
+import {  RiAdminLine } from "react-icons/ri";
+import { FiSettings } from "react-icons/fi";
 
 interface UserDropdownProps {
     auth: AuthContextType;
@@ -37,7 +38,7 @@ const ProfileMenu: React.FC<UserDropdownProps> = ({ auth, onLogout }) => {
                 </Avatar>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-56 mt-2 rounded-xl shadow-xl border">
+            <DropdownMenuContent align="center" className="w-56 mt-2 rounded-xl shadow-xl border">
                 <DropdownMenuItem
                     onClick={() => navigate('/profile')}
                     className="text-base gap-2"
@@ -70,7 +71,18 @@ const ProfileMenu: React.FC<UserDropdownProps> = ({ auth, onLogout }) => {
                             onClick={() => navigate('/admin/settings')}
                             className="text-base gap-2"
                         >
-                            <RiAdminFill size={18} /> Site Settings
+                            <FiSettings size={18} /> Site Settings
+                        </DropdownMenuItem>
+                    ) : null
+              }
+
+              {
+                    auth.user?.roles === 5150 ? (
+                        <DropdownMenuItem
+                            onClick={() => navigate('/admin/manage-students')}
+                            className="text-base gap-2"
+                        >
+                            <RiAdminLine size={18} /> Manage Students
                         </DropdownMenuItem>
                     ) : null
               }
